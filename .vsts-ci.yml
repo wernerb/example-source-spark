@@ -16,4 +16,4 @@ steps:
     DATABRICKS_HOST: $(databricks_host)
   inputs:
     dockerComposeCommand: |
-      run --rm db databricks fs ls
+      run --rm db bash -c '/mount/deploy.sh && databricks fs ls'
