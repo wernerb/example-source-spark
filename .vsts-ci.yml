@@ -11,6 +11,9 @@ steps:
       run --rm sbt sbt assembly
 - task: DockerCompose@0
   displayName: Copy to databricks
+  env:
+    DATABRICKS_TOKEN: $(databricks_token)
+    DATABRICKS_HOST: $(databricks_host)
   inputs:
     dockerComposeCommand: |
-      run --rm db databricks --help
+      run --rm db databricks fs ls
