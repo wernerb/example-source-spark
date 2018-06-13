@@ -3,12 +3,12 @@ steps:
   displayName: Run SBT test
   inputs:
     dockerComposeCommand: |
-      run --rm sbt test
+      run --rm sbt sbt test
 - task: DockerCompose@0
   displayName: Package JAR
   inputs:
     dockerComposeCommand: |
-      run --rm sbt assembly
+      run --rm sbt sbt assembly
 - task: DockerCompose@0
   displayName: Copy to databricks
   inputs:
