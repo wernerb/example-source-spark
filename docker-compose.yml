@@ -6,9 +6,11 @@ services:
      - type: bind 
        source: .
        target: /root
+    tty: true
   db:
     image: timvancann/databricks-cli:latest
     volumes: 
       - type: bind 
         source: .
         target: /mount
+    tty: true
