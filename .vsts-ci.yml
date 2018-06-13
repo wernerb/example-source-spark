@@ -1,0 +1,32 @@
+steps:
+
+- script: |
+    echo hello world from %MyName%
+    echo Agent.HomeDirectory is %CD%
+  workingDirectory: $(Agent.HomeDirectory)
+  env:
+    MyName: $(Agent.MachineName)
+  condition: and(succeeded(), eq(variables['agent.os'], 'windows_nt'))
+  displayName: Greeting from Windows machine
+- task: DockerCompose@0
+  displayName: Run SBT test
+  inputs:
+    action: 'Run a specific service'
+    serviceName: sbt
+    containerName: sbt
+    containerCommand: sbt test
+- task: DockerCompose@0
+  displayName: Package JAR
+  inputs:
+    action: 'Run a specific service'
+    serviceName: sbt
+    containerName: sbt
+    containerCommand: sbt assembly
+- task: DockerCompose@0
+  displayName: Run a specific service
+  inputs:
+    action: 'Run a specific service'
+    serviceName: db
+    containerName: db
+    entrypoint: bash
+    containerCommand: "databricks --help"

@@ -1,0 +1,14 @@
+version: "3.2"
+services:
+  sbt: 
+    image: hseeberg/scala-sbt
+    volumes: 
+     - type: bind 
+       source: .
+       target: /root
+  db:
+    image: timvancann/databricks-cli:latest
+    volumes: 
+      - type: bind 
+        source: .
+        target: /mount
