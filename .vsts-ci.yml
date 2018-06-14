@@ -9,13 +9,15 @@ steps:
   inputs:
     dockerComposeCommand: |
       run --rm sbt sbt assembly
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 - task: CopyFiles@2
   displayName: |
     copy files for publishing
   inputs:
+    #target/scala-2.11/example-source-spark-assembly-0.1.jar
     Contents: 'target/**/*.jar'
     TargetFolder: '$(build.artifactstagingdirectory)'
-#target/scala-2.11/example-source-spark-assembly-0.1.jar
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 - task: PublishBuildArtifacts@1
   displayName: |
     publish files to vsts
@@ -23,6 +25,7 @@ steps:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'example-source-spark' 
     publishLocation: 'container' 
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 - task: DockerCompose@0
   displayName: deploy to databricks
   env:
@@ -31,3 +34,4 @@ steps:
   inputs:
     dockerComposeCommand: |
       run --rm db /mount/deploy.sh
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
