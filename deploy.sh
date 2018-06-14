@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 export DATABRICKS_TOKEN
 export DATABRICKS_HOST
 
@@ -12,4 +14,4 @@ else
   echo -en "${DATABRICKS_HOST}\n${DATABRICKS_TOKEN}" | databricks configure --token
 done 
 
-# 
+databricks fs ls
