@@ -13,4 +13,7 @@ services:
       - type: bind 
         source: .
         target: /mount
+    environment:
+      - DATABRICKS_HOST
+      - DATABRICKS_TOKEN
     tty: true

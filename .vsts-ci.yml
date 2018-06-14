@@ -4,25 +4,25 @@ steps:
 #   inputs:
 #     dockerComposeCommand: |
 #       run --rm sbt sbt test
+# - task: DockerCompose@0
+#   displayName: Package JAR
+#   inputs:
+#     dockerComposeCommand: |
+#       run --rm sbt sbt assembly
+# - task: CopyFiles@2
+#   displayName: |
+#     Copy Files to staging
+#   inputs:
+#     Contents: 'target/**/*.jar'
+#     TargetFolder: '$(build.artifactstagingdirectory)'
+# #target/scala-2.11/example-source-spark-assembly-0.1.jar
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+#     artifactName: 'example-source-spark' 
+#     publishLocation: 'container' 
 - task: DockerCompose@0
-  displayName: Package JAR
-  inputs:
-    dockerComposeCommand: |
-      run --rm sbt sbt assembly
-- task: CopyFiles@2
-  displayName: |
-    Copy Files to staging
-  inputs:
-    Contents: 'target/**/*.jar'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-#target/scala-2.11/example-source-spark-assembly-0.1.jar
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'example-source-spark' 
-    publishLocation: 'container' 
-- task: DockerCompose@0
-  displayName: Copy to databricks
+  displayName: databricks
   env:
     DATABRICKS_TOKEN: $(databricks_token)
     DATABRICKS_HOST: $(databricks_host)
