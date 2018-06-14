@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 export DATABRICKS_TOKEN
 export DATABRICKS_HOST
 
@@ -10,8 +8,8 @@ export DATABRICKS_HOST
 if [ -f "~/.databrickscfg" ]
 then 
   echo "Using supplied configuration"
-else 
+else
   echo -en "${DATABRICKS_HOST}\n${DATABRICKS_TOKEN}" | databricks configure --token
-done 
+fi
 
 databricks fs ls
