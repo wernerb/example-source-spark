@@ -7,7 +7,7 @@ export DATABRICKS_HOST
 
 # do not set token if we already mount in 
 
-if [ -f "~/.databrickscfg" ];
+if [ -f "~/.databrickscfg" ]
 then 
   echo "Using supplied configuration"
 else 
