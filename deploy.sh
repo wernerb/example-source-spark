@@ -12,4 +12,6 @@ else
   echo -en "${DATABRICKS_HOST}\n${DATABRICKS_TOKEN}" | databricks configure --token
 fi
 
+set -x 
+
 databricks fs ls
